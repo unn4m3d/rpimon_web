@@ -1,0 +1,43 @@
+nav.navbar.navbar-inverse
+	.container-fluid
+		.navbar-header
+			button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#the-navbar"
+				- @menu.size.times do
+					span.icon-bar
+			a.navbar-brand href="#"
+				| RMon WebInterface
+		.collapse.navbar-collapse#the-navbar
+			ul.nav.navbar-nav
+				- for elem in @menu
+					li class=(elem.active ? "active" : "")
+						a href=elem.href
+							== elem.title
+			ul.nav.navbar-nav.navbar-right
+				li
+					a href="#"
+						Login
+
+.container.text-center
+	.row
+		.col-sm-6
+			h3 Machines
+			- for m in @machines do
+				.panel-group
+					.panel.panel-default
+						.panel-heading
+							h4.panel-title 
+								a data-toggle="collapse" href="#machine-panel-collapse-#{m.id}"
+									== "#{m.name} (#{URI(m.api_address).host})" 
+						.panel-collapse.collapse id="machine-panel-collapse-#{m.id}"
+							.panel-body
+								.machine-data data-m-id=m.id
+									table.info
+										tbody
+									.status-bar Loading
+									button.update-btn Update
+		.col-sm-6
+
+footer.container.text-center
+	| &copy; unn4m3d
+
+

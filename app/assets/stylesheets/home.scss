@@ -1,0 +1,35 @@
+// Place all the styles related to the home controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.keep{
+	top:0px;
+}
+
+.notice, .alert{
+	min-height: 0px;
+	margin: 0px;
+	padding: 0px;
+}
+
+.machine-data{
+	table{
+		width : 100%;
+		.progress-bar{
+			vertical-align: center;
+		}
+		th:first-child, td:first-child{
+			width: 15%;
+		}
+		td:nth-child(2){
+			min-width: 15%;
+			text-align: left;
+			vertical-align: text-top;
+		}
+	}
+}
+
+.progress-text{
+	color:black;
+	word-wrap: normal;
+
+}
