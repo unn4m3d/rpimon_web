@@ -20,16 +20,18 @@ a_subsection = (elem, key, value) ->
 null_pr = (val,max) ->
 	"#{val}/#{max}"
 
-_size_pr = (value) ->
-	suffixes = ["K","M","G","T","E"]
-	i = 0
-	while value > 1024.0 && i < suffixes.length-1
-		value /= 1024.0
-		i++
 
-	Math.round(value*10)/10 + " " + suffixes[i] + "B"
 
 size_pr = (val,max) ->
+	_size_pr = (value) ->
+		suffixes = ["K","M","G","T","E"]
+		i = 0
+		while value > 1024.0 && i < suffixes.length-1
+			value /= 1024.0
+			i++
+
+		Math.round(value*10)/10 + " " + suffixes[i] + "B"
+	
 	v = _size_pr val
 	m = _size_pr max
 
