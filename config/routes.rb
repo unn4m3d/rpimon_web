@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  get 'machine/create'
+
+  get 'machine/show'
+
+  get 'machine/update'
+
+  get 'machine/delete'
+
   devise_for :users
   get 'home/index'
 

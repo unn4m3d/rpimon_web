@@ -1,11 +1,9 @@
 class HomeController < ApplicationController
-  MenuElem = Struct.new(:active,:href,:title)
 
   def index
-  	@menu = [
-  		MenuElem.new(true,"/","Home"),
-  		MenuElem.new(false,"https://telegram.me/unn4m3d","Telegram")
-  	]
+  	@page_id = 0
+
+  	@menu = MenuElement.all
 
   	@machines = Machine.all
   end

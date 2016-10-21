@@ -65,13 +65,16 @@ window.onload = ()->
 			e.find(".status-bar").text("Loading...")
 			m_handler(e.data("m-id"))("load,mem,disk,temp,who,up", (data)->
 				console.log(data)
-				if data.error?
+				if data.error
 					if data.refused
-						e.find(".status-bar").data("error","true");
+						e.find(".status-bar").data("error","true")
 						e.find(".status-bar").text(data.summary)
+					else if data.statusText is "timeout"
+						e.find(".status-bar").data("error","true")
+						e.find(".status-bar").text("Connection refused!")
 					else
-						e.find(".status-bar").data("error","true");
-						e.find(".status-bar").text("#{data.summary}! See console for more info")
+						e.find(".status-bar").data("error","true")
+						e.find(".status-bar").text("#{data.summary}! See console")
 					
 				else
 					t = e.find("table.info>tbody")
@@ -97,19 +100,21 @@ window.onload = ()->
 
 							when "cpu_usage"
 								a_section(t,"CPU")
-								a_subsection(
-									t,
-									"CPU",
-									c_progress(100,calc_p(100,parseFloat(v)),perc_pr)
-								)
+								for cpu in v
+									a_subsection(
+										t,
+										if cpu.core == "all" then "All" else cpu.core,
+										c_progress(100,parseFloat(cpu.load),perc_pr)
+									)
 
 							when "temperature"
 								a_section(t,"Temperature")
-								a_subsection(
-									t,
-									"Temperature",
-									v.replace("'",'°')
-								)
+								for sensor in v
+									a_subsection(
+										t,
+										sensor.name,
+										sensor.value
+									)
 
 							when "uptime"
 								a_section(t,"Uptime")

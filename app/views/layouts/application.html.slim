@@ -1,0 +1,49 @@
+doctype html
+html
+	head
+		title RPiMon Web Interface
+		== stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+		== javascript_include_tag 'application', 'data-turbolinks-track' => true 
+		== csrf_meta_tags
+	body
+		- @menu ||= MenuElement.all
+		nav.navbar.navbar-inverse
+			.container-fluid
+				.navbar-header
+					button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#the-navbar"
+					- @menu.length.times do
+							span.icon-bar
+					a.navbar-brand href="/" RMon WebInterface
+				.collapse.navbar-collapse#the-navbar
+					ul.nav.navbar-nav
+						- for elem in @menu
+							li class=(elem.page_id == @page_id ? "active" : "")
+								a href=elem.href
+									== elem.title
+					ul.nav.navbar-nav.navbar-right
+						- if user_signed_in?
+							li 
+								a href="#" 
+									| Hello,
+									==< current_user.username
+							li
+								== link_to "Logout", destroy_user_session_path, method: :delete
+							li
+								a href=edit_user_registration_path Edit profile
+
+						- else
+							li 
+								a href="#" Hello, guest
+							li
+								a href=new_user_registration_path Register
+							li
+								a href=new_user_session_path Login
+
+		p.notice
+			== notice
+		p.alert
+			== alert
+
+		== yield
+
+		noscript.noscript-fullscreen This page requires JavaScript

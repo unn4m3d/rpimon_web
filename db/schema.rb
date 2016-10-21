@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161006123725) do
+ActiveRecord::Schema.define(version: 20161008132402) do
 
   create_table "machines", force: :cascade do |t|
     t.string   "name"
@@ -19,6 +19,16 @@ ActiveRecord::Schema.define(version: 20161006123725) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
+
+  create_table "menu_elements", force: :cascade do |t|
+    t.string   "title"
+    t.text     "href"
+    t.integer  "page_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "menu_elements", ["page_id"], name: "index_menu_elements_on_page_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -34,6 +44,7 @@ ActiveRecord::Schema.define(version: 20161006123725) do
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.string   "username"
+    t.text     "role"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

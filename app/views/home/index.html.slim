@@ -1,21 +1,4 @@
-nav.navbar.navbar-inverse
-	.container-fluid
-		.navbar-header
-			button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#the-navbar"
-				- @menu.size.times do
-					span.icon-bar
-			a.navbar-brand href="#"
-				| RMon WebInterface
-		.collapse.navbar-collapse#the-navbar
-			ul.nav.navbar-nav
-				- for elem in @menu
-					li class=(elem.active ? "active" : "")
-						a href=elem.href
-							== elem.title
-			ul.nav.navbar-nav.navbar-right
-				li
-					a href="#"
-						Login
+
 
 .container.text-center
 	.row
@@ -35,6 +18,12 @@ nav.navbar.navbar-inverse
 										tbody
 									.status-bar Loading
 									button.update-btn Update
+			- if can? :create, Machine
+				.panel-group
+					.panel.panel-default
+						.panel-heading
+							h4.panel-title
+								a href=machine_create_path Add
 		.col-sm-6
 
 footer.container.text-center

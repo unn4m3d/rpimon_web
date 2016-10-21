@@ -23,4 +23,9 @@ class User < ActiveRecord::Base
       where(conditions.to_hash).first
     end
   end
+
+  def roles
+
+    (self.role||"").split(";").map{|x| x.to_sym}
+  end
 end
